@@ -3,7 +3,7 @@ __author__ = 'Luis Fernando'
 import heapq
 
 
-def dijkstrashortestpath(graph, start, end):
+def dijkstra(graph, start, end):
     # Queue storing node to visit
     queue = [(0, start, [])]
     # Node visited
@@ -37,5 +37,5 @@ if __name__=='__main__':
             'z': {'b': 6, 'x': 15, 'y': 11}}
 
 
-    cost, path = dijkstrashortestpath(G, start='a', end='b')
+    cost, path = dijkstra(G, start='a', end='b')
     print cost, path
