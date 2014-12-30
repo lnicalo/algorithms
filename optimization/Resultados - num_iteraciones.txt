@@ -1,0 +1,34 @@
+tol = 2.220446049250313e-16
+x0  = [-1.8;2]; 
+
+Método de máximo descenso:
+rango = 0;
+lambda = armijo()
+Nº iteraciones = 3778
+solucion = [0.999999999999824,0.999999999999647]
+
+Métodos casi-newton:
+rango = 1;
+tipo  = 2;
+lambda = armijo()
+Nº iteraciones = 10000001
+solucion =  [0.999999999999824, 0.999999999999647]
+la convergencia es muy lenta
+
+rango = 2;
+tipo  = 2;
+lambda = armijo();
+Nº iteraciones = 15141
+solucion = [1.015393351989688, 1.036411922775758]
+
+rango = 1;
+tipo  = 1;
+lambda = armijo();
+Nº iteraciones = 3778
+solucion = [0.999999999999824,0.999999999999647]
+
+rango = 2;
+tipo  = 1;
+lambda = armijo();
+Nº iteraciones = 119
+solucion = [1, 1]
