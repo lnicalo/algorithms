@@ -1,0 +1,66 @@
+% Quasi-newton method
+% 
+% Type 1: We
+% Type 2: 
+%%
+%tipo =1 cuando en casi newton aproximo el inverso del hessiano
+%es el formato de las matrices A´s y no hay necesidad de resolver
+%ningún sistema lineal en cada etapa
+%tipo =2 cuando en casi newton aproxima el hessiano; es le formato de las
+%matrices B´s y hay que resolver un sistema lineal en cada etapa
+%en el programa las matrices se denotan siempre por A, pero se trataría
+%de las matrices B cuando estemos en tipo = 2; 
+% rank:
+% If rank = 1: Davidon-Fletcher-Powell (DFP)
+% If rank = 2: Broyden, Fletcher, Goldfarb, Shanno(BFGS)
+% If rank = 0: No correction.
+rank = 1;
+type = 2;
+
+%% Stop parameters
+% Precision
+tol = eps;
+% Max. Iterations
+nitermax = 10000000;
+
+%% Armijo algorithm parameters
+theta = 0.8; alpha = 0.9; beta = 1 / alpha;
+
+%% Function parameters
+% f(x,y)=a(y - x^2)^2 + (b - x)^2,
+a = 100; b = 1; 
+par = [a, b];
+
+%% First iteration
+niter = 1;
+x0 = [-1.8; 2]; % Initial point
+A = eye(length(x0)); % Initial update matrix
+x_old = x0;
+g_old = gradiente(x_old,par);
+p = direccion(x_old,g_old,A,rank,type);
+lambda = armijo(x_old,p,g_old,theta,alpha,beta,par);
+x_new = x_old + lambda*p;
+delta_x = x_new - x_old;
+g_new = gradiente(x_new, par);
+delta_g = g_new - g_old; 
+ 
+while ((norm(delta_x)>tol) && (norm(g_new) > tol) && (niter <= nitermax))
+    x_old = x_new;
+    g_old = g_new;
+    if (type == 1)
+        A = update(A, delta_g, delta_x, rank);    
+    else
+        A = update(A, delta_x, delta_g, rank);
+    end
+    
+    p = direccion(x_old, g_old, A, rank, type);
+    lambda = armijo(x_old, p, g_old, theta, alpha, beta, par);
+    
+    x_new = x_old + lambda * p;
+    delta_x = x_new - x_old;
+    
+    g_new = gradiente(x_new, par);
+    delta_g = g_new - g_old;
+    
+    niter = niter + 1;
+end
