@@ -3,6 +3,7 @@ switch rank
     case 0 
         F = E;
     case 1
+        % Davidon–Fletcher–Powell formula
         delta = v-E*u;
         esc = u'*delta;
         if (esc <= 0)
@@ -17,6 +18,7 @@ switch rank
         if (esc <= 0)
             F = E;
         else
+            % Sherman-Morrison formula (wikipedia)
             n = length(u);I = eye(n);
             gamma = 1 / esc;
             S = gamma*(v*v');

@@ -1,9 +1,5 @@
 % Quasi-newton method
 % 
-% Type 1: We
-% Type 2: 
-
-
 % rank:
 % If rank = 1: Davidon-Fletcher-Powell (DFP)
 % If rank = 2: Broyden, Fletcher, Goldfarb, Shanno(BFGS)
@@ -12,8 +8,8 @@ rank = 2;
 
 %%
 % type = 1: inverse hessian approximation
-% tipo = 2: hessian approximation. It is required to solve a linear system
-% in each steo
+% type = 2: hessian approximation. It is required to solve a linear system
+% in each step
 type = 1;
 
 %% Stop parameters
@@ -37,7 +33,7 @@ A = eye(length(x0)); % Initial update matrix
 x_old = x0;
 g_old = gradient(x_old,par);
 p = direction(g_old,A,type);
-lambda = armijo(x_old,p,g_old,theta,alpha,beta,par);
+lambda = armijo(x_old, p, g_old, theta, alpha, beta, par);
 x_new = x_old + lambda*p;
 delta_x = x_new - x_old;
 g_new = gradient(x_new, par);
