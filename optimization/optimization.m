@@ -3,7 +3,7 @@
 % rank:
 % If rank = 1: Davidon-Fletcher-Powell (DFP)
 % If rank = 2: Broyden, Fletcher, Goldfarb, Shanno(BFGS)
-% If rank = 0: No correction.
+% If rank = 0: No correction. Steepest descent
 rank = 2;
 
 %%
